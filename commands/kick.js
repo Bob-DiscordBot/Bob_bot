@@ -12,12 +12,14 @@ module.exports = {
             type: 'user',
             name: 'member',
             description: 'Member to kick',
-            required: true
+            required: true,
+            autocomplete: false
         }, {
             type: 'string',
             name: 'reason',
             description: 'Reason for kick',
-            required: false
+            required: false,
+            autocomplete: false
         }
     ],
 

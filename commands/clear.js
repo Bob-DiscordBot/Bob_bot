@@ -12,12 +12,14 @@ module.exports = {
             type: 'number',
             name: 'number',
             description: 'Number of messages to delete (1 - 100)',
-            required: true
+            required: true,
+            autocomplete: false
         }, {
             type: 'channel',
             name: 'channel',
             description: 'Channel where to clear messages',
-            required: false
+            required: false,
+            autocomplete: false
         }
     ],
 

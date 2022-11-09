@@ -11,7 +11,8 @@ module.exports = {
             type: 'string',
             name: 'command',
             description: 'The command to display',
-            required: false
+            required: false,
+            autocomplete: true
         }
     ],
 
@@ -49,11 +50,11 @@ module.exports = {
                 .setColor(bot.color)
                 .setTitle(`Commands ${command.name}`)
                 .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
-                .setDescription(`Name : \`${command.name}\`\n
-                                 Description : \`${command.description}\`\n
-                                 Permissions : \`${typeof command.permission !== 'bigint' ? command.permission : new Discord.PermissionsBitField(command.permission).toArray(false)}\`\n
-                                 DM commands : \`${command.dm ? 'Yes' : 'No'}\`\n
-                                 Category : \`${command.category}\``)
+                .setDescription(`Name : \`${command.name}\`
+                                 Description : \`${ command.description }\`
+                                 Permissions : \`${ typeof command.permission !== 'bigint' ? command.permission : new Discord.PermissionsBitField(command.permission).toArray(false) }\`
+                                 DM commands : \`${ command.dm ? 'Yes' : 'No' }\`
+                                 Category : \`${ command.category }\``)
                 .setTimestamp()
                 .setFooter({ text: 'Bot commands' });
 

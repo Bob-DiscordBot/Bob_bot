@@ -6,24 +6,27 @@ module.exports = {
     name: 'mute',
     description: 'Mute a member',
     category: 'Moderation',
-    permission: PermissionFlagsBits.ModerateMemebrs,
+    permission: PermissionFlagsBits.ModerateMembers,
     dm: false,
     options: [
         {
             type: 'user',
             name: 'member',
             description: 'Member to mute',
-            required: true
+            required: true,
+            autocomplete: false
         }, {
             type: 'string',
             name: 'time',
             description: 'Mute time',
-            required: false
+            required: true,
+            autocomplete: false
         }, {
             type: 'string',
             name: 'reason',
             description: 'Reason for mute',
-            required: false
+            required: false,
+            autocomplete: false
         }
     ],
 
@@ -49,10 +52,10 @@ module.exports = {
         if (member.isCommunicationDisabled()) return message.reply('This member is already muted !');
 
         try {
-            await user.send(`You have been muted from the ${message.guild.name} server by ${message.user.name} for the reason : \`${reason}\``);
+            await user.send(`You have been muted from the ${message.guild.name} server by ${message.user.username} for ${time} for the reason : \`${reason}\``);
         } catch (err) {}
 
-        await message.reply(`${message.user} muted ${user.tag} for the reason : \`${reason}\``);
-        await member.timeout(ms(time), reason);
+        await message.reply(`${message.user} muted ${user} for ${time} for the reason : \`${reason}\``);
+        await member.timeout(ms(time), `${reason}`);
     }
 }

@@ -12,12 +12,14 @@ module.exports = {
             type: 'user',
             name: 'user',
             description: 'User to unban',
-            required: true
+            required: true,
+            autocomplete: false
         }, {
             type: 'string',
             name: 'reason',
             description: 'Unban reason',
-            required: false
+            required: false,
+            autocomplete: false
         }
     ],
 

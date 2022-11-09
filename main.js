@@ -7,7 +7,12 @@ const config = require('./config');
 
 bot.commands = new Discord.Collection();
 bot.color = '#ff0000';
+bot.function = {
+    createId: require('./functions/createId'),
+    generateCaptcha: require('./functions/generateCaptcha'),
+    welcome: require('./functions/welcome')
+}
 
 bot.login(config.token);
-loadCommands(bot);
-loadEvents(bot);
+loadCommands(bot).then();
+loadEvents(bot).then();
