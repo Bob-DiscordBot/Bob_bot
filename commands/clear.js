@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { PermissionFlagsBits } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     name: 'clear',
@@ -32,24 +33,25 @@ module.exports = {
         if (!channel) channel = message.channel;
         if (channel.id !== message.channel.id && !message.guild.channels.cache.get(channel.id)) return message.reply('No channel !');
 
+        await message.deferReply();
+
         try {
             let messages = await channel.bulkDelete(parseInt(number));
-            await message.reply(`Bot cleared \`${messages.size}\` ${messages.size <= 1 ? 'message' : 'messages'} in the ${channel} channel  :broom:`);
+            await message.editReply({ content: `Bot cleared \`${messages.size}\` ${messages.size <= 1 ? 'message' : 'messages'} in the ${channel} channel !  :broom:`, ephemeral: true });
 
         } catch (err) {
-            let messages = [...(await channel.messages.fetch()).filter(msg => (Date.now() - msg.createdAt) <= 1209600000).values()];
+            let messages = [...(await channel.messages.fetch()).filter(msg => !msg.interaction && (Date.now() - msg.createdAt) <= 1209600000).values()];
 
             if (messages.length <= 0) {
-                message.reply('No messages have been deleted because they are all over 14 days old !');
+                await message.editReply('No messages have been deleted because they are all over 14 days old !');
 
             } else {
                 await channel.bulkDelete(messages);
-                await message.reply(`Bot was able to delete only \`${messages.length}\` ${messages.length <= 1 ? 'message' : 'messages'} because the others are more than 14 days old  :broom:`);
+                await message.editReply(`Bot was able to delete only \`${messages.length}\` ${messages.length <= 1 ? 'message' : 'messages'} in the ${channel} channel because the others are more than 14 days old !  :broom:`);
             }
         }
 
-        setTimeout(() => {
-            message.deleteReply();
-        }, 5000);
+        await wait(7000);
+        await message.deleteReply();
     }
 }
