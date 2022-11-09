@@ -1,4 +1,5 @@
 # Bob Bot
+Projet de bot discord fait par `Huntersnak#0001`
 
 ## Dependencies
 ```bash
